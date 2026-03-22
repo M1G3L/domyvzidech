@@ -214,9 +214,9 @@ const PropertyCard = ({ title, price, status, desc, image }: any) => (
 
 const Offer = () => {
   const items = [
-    { title: 'Apartmán U Synagogy', price: '4.850.000 Kč', status: 'K dispozici', desc: 'Stylový byt 2+kk s výhledem na historické uličky a původními klenbami.', image: 'https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?auto=format&fit=crop&q=80&w=800' },
-    { title: 'Ateliér Pod Baštou', price: '3.200.000 Kč', status: 'Rezervováno', desc: 'Unikátní prostor v přízemí historického domu, ideální jako investice nebo kancelář.', image: 'https://images.unsplash.com/photo-1493809842364-78817add7ffb?auto=format&fit=crop&q=80&w=800' },
-    { title: 'Mezonet UNESCO', price: '7.900.000 Kč', status: 'Připravuje se', desc: 'Prostorný mezonet 4+kk v podkroví s terasou a výhledem na celou Třebíč.', image: 'https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?auto=format&fit=crop&q=80&w=800' },
+    { title: 'Apartmán U Synagogy', price: '4.850.000 Kč', status: 'K dispozici', desc: 'Stylový byt 2+kk s výhledem na historické uličky a původními klenbami.', image: '/imgs/byt1.jpg' },
+    { title: 'Ateliér Pod Baštou', price: '3.200.000 Kč', status: 'Rezervováno', desc: 'Unikátní prostor v přízemí historického domu, ideální jako investice nebo kancelář.', image: '/imgs/byt2.jpg' },
+    { title: 'Mezonet UNESCO', price: '7.900.000 Kč', status: 'Připravuje se', desc: 'Prostorný mezonet 4+kk v podkroví s terasou a výhledem na celou Třebíč.', image: '/imgs/byt3.jpg' },
   ];
 
   return (
@@ -236,10 +236,10 @@ const Offer = () => {
 
 const Gallery = () => {
   const images = [
-    { url: 'https://images.unsplash.com/photo-1618221195710-dd6b41faaea6?auto=format&fit=crop&q=80&w=800', label: 'Rekonstrukce bytu 2+kk, původní trámy' },
-    { url: 'https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=80&w=800', label: 'Detail kamenného zdiva v interiéru' },
-    { url: 'https://images.unsplash.com/photo-1617806118233-18e1db207fa6?auto=format&fit=crop&q=80&w=800', label: 'Moderní kuchyně v historickém kontextu' },
-    { url: 'https://images.unsplash.com/photo-1616137422495-1e9e46e2aa77?auto=format&fit=crop&q=80&w=800', label: 'Ložnice s výhledem na židovskou čtvrť' },
+    { url: '/imgs/galerie1.jpg', label: 'Rekonstrukce bytu 2+kk, původní trámy' },
+    { url: '/imgs/galerie2.jpg', label: 'Detail kamenného zdiva v interiéru' },
+    { url: '/imgs/galerie3.jpg', label: 'Moderní kuchyně v historickém kontextu' },
+    { url: '/imgs/galerie4.jpg', label: 'Ložnice s výhledem na židovskou čtvrť' },
   ];
 
   return (
