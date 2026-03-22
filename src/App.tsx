@@ -139,7 +139,7 @@ const About = () => (
       <div className="grid lg:grid-cols-2 gap-24 items-center">
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
           <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-            <img src="/imgs/about_01.jpg" alt="Detail rekonstrukce - zakladatel projektu" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src="/public/imgs/about_01.jpg" alt="Detail rekonstrukce - zakladatel projektu" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
           <div className="absolute -bottom-10 -right-10 bg-white p-10 rounded-3xl shadow-2xl border border-gray-100 hidden md:block">
             <div className="flex items-center gap-4 mb-4">
