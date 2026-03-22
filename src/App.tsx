@@ -4,6 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
   Building2, 
   MapPin, 
@@ -20,10 +21,14 @@ import {
   TrendingUp
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
+import PropertyDetail from './PropertyDetail';
+import { properties } from './data';
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const location = useLocation();
+  const isHome = location.pathname === '/';
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);
@@ -32,40 +37,40 @@ const Navbar = () => {
   }, []);
 
   const links = [
-    { name: 'O projektu', href: '#about' },
-    { name: 'Nabídka', href: '#offer' },
-    { name: 'Rekonstrukce', href: '#gallery' },
-    { name: 'Reference', href: '#references' },
-    { name: 'Kontakt', href: '#contact' },
+    { name: 'O projektu', href: isHome ? '#about' : '/#about' },
+    { name: 'Nabídka', href: isHome ? '#offer' : '/#offer' },
+    { name: 'Rekonstrukce', href: isHome ? '#gallery' : '/#gallery' },
+    { name: 'Reference', href: isHome ? '#references' : '/#references' },
+    { name: 'Kontakt', href: isHome ? '#contact' : '/#contact' },
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? 'glass-nav py-3' : 'bg-transparent py-6'}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled || !isHome ? 'glass-nav py-3' : 'bg-transparent py-6'}`}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center">
-          <div className="flex items-center gap-2">
+          <Link to="/" className="flex items-center gap-2">
             <div className="w-10 h-10 bg-gold flex items-center justify-center rounded-lg shadow-lg">
               <Building2 className="text-white h-6 w-6" />
             </div>
             <div className="flex flex-col">
-              <span className={`text-xl font-bold tracking-tighter leading-none ${scrolled ? 'text-dark' : 'text-white'}`}>DŮM V ŽIDECH</span>
-              <span className={`text-[10px] font-bold tracking-[0.3em] uppercase ${scrolled ? 'text-gold' : 'text-gold-light'}`}>Třebíč UNESCO</span>
+              <span className={`text-xl font-bold tracking-tighter leading-none ${scrolled || !isHome ? 'text-dark' : 'text-white'}`}>DOMY V ŽIDECH</span>
+              <span className={`text-[10px] font-bold tracking-[0.3em] uppercase ${scrolled || !isHome ? 'text-gold' : 'text-gold-light'}`}>Třebíč UNESCO</span>
             </div>
-          </div>
+          </Link>
           
           <div className="hidden md:flex items-center space-x-8">
             {links.map((link) => (
-              <a key={link.name} href={link.href} className={`text-sm font-semibold transition-colors hover:text-gold ${scrolled ? 'text-dark' : 'text-white'}`}>
+              <a key={link.name} href={link.href} className={`text-sm font-semibold transition-colors hover:text-gold ${scrolled || !isHome ? 'text-dark' : 'text-white'}`}>
                 {link.name}
               </a>
             ))}
-            <a href="#contact" className="bg-gold hover:bg-gold-dark text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-gold/20">
+            <a href={isHome ? '#contact' : '/#contact'} className="bg-gold hover:bg-gold-dark text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-gold/20">
               Domluvit prohlídku
             </a>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2">
-            {isOpen ? <X className={scrolled ? 'text-dark' : 'text-white'} /> : <Menu className={scrolled ? 'text-dark' : 'text-white'} />}
+            {isOpen ? <X className={scrolled || !isHome ? 'text-dark' : 'text-white'} /> : <Menu className={scrolled || !isHome ? 'text-dark' : 'text-white'} />}
           </button>
         </div>
       </div>
@@ -79,7 +84,7 @@ const Navbar = () => {
                   {link.name}
                 </a>
               ))}
-              <a href="#contact" onClick={() => setIsOpen(false)} className="block w-full text-center bg-gold text-white py-4 rounded-xl font-bold">
+              <a href={isHome ? '#contact' : '/#contact'} onClick={() => setIsOpen(false)} className="block w-full text-center bg-gold text-white py-4 rounded-xl font-bold">
                 Domluvit prohlídku
               </a>
             </div>
@@ -184,7 +189,7 @@ const About = () => (
   </section>
 );
 
-const PropertyCard = ({ title, price, status, desc, image }: any) => (
+const PropertyCard = ({ id, title, price, status, desc, image }: any) => (
   <motion.div whileHover={{ y: -10 }} className="bg-white rounded-3xl overflow-hidden card-shadow hover:card-shadow-hover transition-all border border-gray-50 group">
     <div className="relative h-72 overflow-hidden">
       <img src={image} alt={title} className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" referrerPolicy="no-referrer" />
@@ -204,21 +209,15 @@ const PropertyCard = ({ title, price, status, desc, image }: any) => (
           <p className="text-[10px] text-gray-400 uppercase font-bold tracking-widest mb-1">Cena</p>
           <p className="text-2xl font-bold text-gold">{price}</p>
         </div>
-        <button className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-dark hover:bg-gold hover:text-white transition-all">
+        <Link to={`/property/${id}`} className="w-12 h-12 bg-gray-50 rounded-full flex items-center justify-center text-dark hover:bg-gold hover:text-white transition-all">
           <ChevronRight className="h-6 w-6" />
-        </button>
+        </Link>
       </div>
     </div>
   </motion.div>
 );
 
 const Offer = () => {
-  const items = [
-    { title: 'Apartmán U Synagogy', price: '4.850.000 Kč', status: 'K dispozici', desc: 'Stylový byt 2+kk s výhledem na historické uličky a původními klenbami.', image: '/imgs/byt1.jpg' },
-    { title: 'Ateliér Pod Baštou', price: '3.200.000 Kč', status: 'Rezervováno', desc: 'Unikátní prostor v přízemí historického domu, ideální jako investice nebo kancelář.', image: '/imgs/byt2.jpg' },
-    { title: 'Mezonet UNESCO', price: '7.900.000 Kč', status: 'Připravuje se', desc: 'Prostorný mezonet 4+kk v podkroví s terasou a výhledem na celou Třebíč.', image: '/imgs/byt3.jpg' },
-  ];
-
   return (
     <section id="offer" className="py-32 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -227,7 +226,7 @@ const Offer = () => {
           <h2 className="text-4xl md:text-5xl font-display font-bold text-dark">Najděte svůj prostor v historii</h2>
         </div>
         <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
-          {items.map((item, i) => <PropertyCard key={i} {...item} />)}
+          {properties.map((item, i) => <PropertyCard key={i} {...item} />)}
         </div>
       </div>
     </section>
@@ -388,19 +387,28 @@ const Footer = () => (
   </footer>
 );
 
+const HomePage = () => (
+  <main>
+    <Hero />
+    <About />
+    <Offer />
+    <Gallery />
+    <References />
+    <Contact />
+  </main>
+);
+
 export default function App() {
   return (
-    <div className="min-h-screen font-sans">
-      <Navbar />
-      <main>
-        <Hero />
-        <About />
-        <Offer />
-        <Gallery />
-        <References />
-        <Contact />
-      </main>
-      <Footer />
-    </div>
+    <Router>
+      <div className="min-h-screen font-sans">
+        <Navbar />
+        <Routes>
+          <Route path="/" element={<HomePage />} />
+          <Route path="/property/:id" element={<PropertyDetail />} />
+        </Routes>
+        <Footer />
+      </div>
+    </Router>
   );
 }
