@@ -15,7 +15,7 @@ export const properties = [
       gallery: [
         '/imgs/byt1_1.jpg',
         '/imgs/byt1_2.jpg',
-        '/imgs/byt1_4.jpg'
+        '/imgs/byt1_3.jpg'
       ]
     }
   },

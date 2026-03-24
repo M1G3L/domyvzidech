@@ -22,6 +22,7 @@ import {
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'motion/react';
 import PropertyDetail from './PropertyDetail';
+import FullGallery from './FullGallery';
 import { properties } from './data';
 
 const Navbar = () => {
@@ -225,8 +226,14 @@ const Offer = () => {
           <span className="text-gold font-bold uppercase tracking-[0.3em] text-sm mb-4 block">Aktuální nabídka</span>
           <h2 className="text-4xl md:text-5xl font-display font-bold text-dark">Najděte svůj prostor v historii</h2>
         </div>
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10">
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-10 mb-16">
           {properties.map((item, i) => <PropertyCard key={i} {...item} />)}
+        </div>
+        <div className="text-center">
+          <Link to="/gallery" className="inline-flex items-center gap-3 px-10 py-5 bg-gold hover:bg-gold-dark text-white font-bold rounded-full transition-all shadow-xl shadow-gold/20 transform hover:scale-105">
+            Zobrazit kompletní nabídku
+            <ArrowRight className="h-5 w-5" />
+          </Link>
         </div>
       </div>
     </section>
@@ -261,9 +268,9 @@ const Gallery = () => {
         </div>
 
         <div className="text-center">
-          <a href="https://www.instagram.com/dum_v_zidech/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 px-8 py-4 border-2 border-gold text-gold font-bold rounded-full hover:bg-gold hover:text-white transition-all">
+          <a href="https://www.instagram.com/dum_v_zidech/" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-3 px-10 py-5 border-2 border-gold text-gold font-bold rounded-full hover:bg-gold hover:text-white transition-all transform hover:scale-105">
             <Instagram className="h-5 w-5" />
-            Zobrazit více na Instagramu
+            Sledovat na Instagramu
           </a>
         </div>
       </div>
@@ -406,6 +413,7 @@ export default function App() {
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/property/:id" element={<PropertyDetail />} />
+          <Route path="/gallery" element={<FullGallery />} />
         </Routes>
         <Footer />
       </div>
