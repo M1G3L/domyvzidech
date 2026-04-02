@@ -25,6 +25,24 @@ import PropertyDetail from './PropertyDetail';
 import FullGallery from './FullGallery';
 import { properties } from './data';
 
+// Helper component to scroll to hash on navigation
+const ScrollToHash = () => {
+  const { hash } = useLocation();
+
+  useEffect(() => {
+    if (hash) {
+      const element = document.getElementById(hash.replace('#', ''));
+      if (element) {
+        setTimeout(() => {
+          element.scrollIntoView({ behavior: 'smooth' });
+        }, 100);
+      }
+    }
+  }, [hash]);
+
+  return null;
+};
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
@@ -242,10 +260,10 @@ const Offer = () => {
 
 const Gallery = () => {
   const images = [
-    { url: '/imgs/galerie1.jpg', label: 'Rekonstrukce bytu 2+kk, původní trámy' },
-    { url: '/imgs/galerie2.jpg', label: 'Detail kamenného zdiva v interiéru' },
-    { url: '/imgs/galerie3.jpg', label: 'Moderní kuchyně v historickém kontextu' },
-    { url: '/imgs/galerie4.jpg', label: 'Ložnice s výhledem na židovskou čtvrť' },
+    { url: '/imgs/galerie1.jpg', label: 'Rekonstrukce bytu 2+kk, původní trámy', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
+    { url: '/imgs/galerie2.jpg', label: 'Detail kamenného zdiva v interiéru', status: 'Rezervováno', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
+    { url: '/imgs/galerie3.jpg', label: 'Moderní kuchyně v historickém kontextu', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/p/DD4U-cjsHOZ/?img_index=1' },
+    { url: '/imgs/galerie4.jpg', label: 'Ložnice s výhledem na židovskou čtvrť', status: 'Připravujeme', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
   ];
 
   return (
@@ -258,12 +276,27 @@ const Gallery = () => {
         
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
           {images.map((img, i) => (
-            <motion.div key={i} whileHover={{ scale: 1.02 }} className="relative aspect-square rounded-2xl overflow-hidden shadow-lg group cursor-pointer">
-              <img src={img.url} alt={img.label} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" referrerPolicy="no-referrer" />
-              <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex items-end">
-                <p className="text-white text-xs font-medium">{img.label}</p>
-              </div>
-            </motion.div>
+            <a key={i} href={img.instagramUrl} target="_blank" rel="noopener noreferrer">
+              <motion.div whileHover={{ scale: 1.02 }} className="relative aspect-square rounded-2xl overflow-hidden shadow-lg group cursor-pointer h-full">
+                <img src={img.url} alt={img.label} className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" referrerPolicy="no-referrer" />
+                <div className="absolute top-4 left-4 z-20">
+                  <span className={`px-3 py-1 rounded-full text-[8px] font-bold uppercase tracking-widest text-white shadow-lg ${
+                    img.status === 'V nabídce' ? 'bg-emerald-500' : 
+                    img.status === 'Připravujeme' ? 'bg-gold' : 
+                    img.status === 'Rezervováno' ? 'bg-blue-500' : 'bg-gray-500'
+                  }`}>
+                    {img.status}
+                  </span>
+                </div>
+                <div className="absolute inset-0 bg-gradient-to-t from-dark/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity p-6 flex flex-col justify-end">
+                  <p className="text-white text-xs font-medium mb-2">{img.label}</p>
+                  <span className="text-gold text-[10px] font-bold uppercase tracking-widest flex items-center gap-2">
+                    <Instagram className="h-3 w-3" />
+                    Zobrazit na Instagramu
+                  </span>
+                </div>
+              </motion.div>
+            </a>
           ))}
         </div>
 
@@ -408,6 +441,7 @@ const HomePage = () => (
 export default function App() {
   return (
     <Router>
+      <ScrollToHash />
       <div className="min-h-screen font-sans">
         <Navbar />
         <Routes>

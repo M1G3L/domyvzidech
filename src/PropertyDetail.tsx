@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams, Link, useNavigate } from 'react-router-dom';
-import { motion } from 'motion/react';
+import { motion, AnimatePresence } from 'motion/react';
 import { 
   ArrowLeft, 
   Maximize, 
@@ -11,7 +11,11 @@ import {
   MapPin,
   Calendar,
   ChevronRight,
-  Home
+  ChevronLeft,
+  Home,
+  Image as ImageIcon,
+  FileText,
+  X
 } from 'lucide-react';
 import { properties } from './data';
 
@@ -19,17 +23,54 @@ const PropertyDetail = () => {
   const { id } = useParams();
   const navigate = useNavigate();
   const property = properties.find(p => p.id === id);
+  const [activeTab, setActiveTab] = useState<'photos' | 'plans'>('photos');
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
+  const allImages = activeTab === 'photos' 
+    ? [property.image, ...property.details.gallery]
+    : (property.details.floorPlans || []);
+
+  const currentImageIndex = allImages.indexOf(selectedImage || '');
+
+  const handleNext = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    const nextIndex = (currentImageIndex + 1) % allImages.length;
+    setSelectedImage(allImages[nextIndex]);
+  };
+
+  const handlePrev = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
+    const prevIndex = (currentImageIndex - 1 + allImages.length) % allImages.length;
+    setSelectedImage(allImages[prevIndex]);
+  };
+
+  useEffect(() => {
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (!isLightboxOpen) return;
+      
+      if (e.key === 'Escape') setIsLightboxOpen(false);
+      if (e.key === 'ArrowRight') handleNext();
+      if (e.key === 'ArrowLeft') handlePrev();
+    };
+
+    window.addEventListener('keydown', handleKeyDown);
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  }, [isLightboxOpen, currentImageIndex, allImages]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+    if (property) {
+      setSelectedImage(property.image);
+    }
+  }, [property]);
 
   if (!property) {
     return (
       <div className="min-h-screen flex items-center justify-center bg-cream">
         <div className="text-center">
           <h2 className="text-3xl font-bold mb-4">Nemovitost nebyla nalezena</h2>
-          <Link to="/" className="text-gold hover:underline flex items-center justify-center gap-2">
+          <Link to="/#offer" className="text-gold hover:underline flex items-center justify-center gap-2">
             <ArrowLeft size={20} /> Zpět na hlavní stránku
           </Link>
         </div>
@@ -37,12 +78,22 @@ const PropertyDetail = () => {
     );
   }
 
+  useEffect(() => {
+    if (property) {
+      if (activeTab === 'photos') {
+        setSelectedImage(property.image);
+      } else if (activeTab === 'plans' && property.details.floorPlans?.[0]) {
+        setSelectedImage(property.details.floorPlans[0]);
+      }
+    }
+  }, [activeTab, property]);
+
   return (
     <div className="min-h-screen bg-cream pb-20">
       {/* Navigation */}
       <nav className="fixed top-0 left-0 right-0 z-50 bg-white/80 backdrop-blur-md border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
-          <Link to="/" className="flex items-center gap-2 text-dark hover:text-gold transition-colors font-bold">
+          <Link to="/#offer" className="flex items-center gap-2 text-dark hover:text-gold transition-colors font-bold">
             <ArrowLeft size={20} />
             <span>Zpět na výběr</span>
           </Link>
@@ -66,26 +117,111 @@ const PropertyDetail = () => {
           >
             {/* Main Image & Gallery */}
             <div className="space-y-6">
-              <div className="aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl bg-gray-200">
-                <img 
-                  src={property.image} 
-                  alt={property.title} 
-                  className="w-full h-full object-cover"
-                  referrerPolicy="no-referrer"
-                />
+              <div className="flex bg-white p-1 rounded-2xl border border-gray-100 shadow-sm w-fit mb-4">
+                <button 
+                  onClick={() => setActiveTab('photos')}
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                    activeTab === 'photos' ? 'bg-dark text-white shadow-lg' : 'text-gray-400 hover:text-dark'
+                  }`}
+                >
+                  <ImageIcon size={18} />
+                  Fotografie
+                </button>
+                <button 
+                  onClick={() => setActiveTab('plans')}
+                  className={`flex items-center gap-2 px-6 py-2.5 rounded-xl text-sm font-bold transition-all ${
+                    activeTab === 'plans' ? 'bg-dark text-white shadow-lg' : 'text-gray-400 hover:text-dark'
+                  }`}
+                >
+                  <FileText size={18} />
+                  Půdorys
+                </button>
               </div>
-              <div className="grid grid-cols-3 gap-4">
-                {property.details.gallery.map((img, idx) => (
-                  <div key={idx} className="aspect-square rounded-2xl overflow-hidden bg-gray-200 shadow-md hover:shadow-lg transition-shadow cursor-pointer">
+
+              <AnimatePresence mode="wait">
+                <motion.div 
+                  key={activeTab}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.95 }}
+                  transition={{ duration: 0.3 }}
+                  className="space-y-6"
+                >
+                  <div 
+                    className="aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl bg-gray-200 group relative cursor-zoom-in"
+                    onClick={() => setIsLightboxOpen(true)}
+                  >
                     <img 
-                      src={img} 
-                      alt={`${property.title} gallery ${idx}`} 
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      src={selectedImage || property.image} 
+                      alt={property.title} 
+                      className="w-full h-full object-cover"
                       referrerPolicy="no-referrer"
                     />
+                    {activeTab === 'plans' && (
+                      <div className="absolute inset-0 bg-black/5 flex items-center justify-center pointer-events-none">
+                        <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-full shadow-xl">
+                          <span className="text-xs font-bold text-dark uppercase tracking-widest">Půdorys nemovitosti</span>
+                        </div>
+                      </div>
+                    )}
                   </div>
-                ))}
-              </div>
+                  
+                  {activeTab === 'photos' && (
+                    <div className="grid grid-cols-4 gap-4">
+                      <div 
+                        onClick={() => setSelectedImage(property.image)}
+                        className={`aspect-square rounded-2xl overflow-hidden bg-gray-200 shadow-md cursor-pointer border-2 transition-all ${
+                          selectedImage === property.image ? 'border-gold ring-4 ring-gold/10' : 'border-transparent'
+                        }`}
+                      >
+                        <img 
+                          src={property.image} 
+                          alt={property.title} 
+                          className="w-full h-full object-cover"
+                          referrerPolicy="no-referrer"
+                        />
+                      </div>
+                      {property.details.gallery.map((img, idx) => (
+                        <div 
+                          key={idx} 
+                          onClick={() => setSelectedImage(img)}
+                          className={`aspect-square rounded-2xl overflow-hidden bg-gray-200 shadow-md cursor-pointer border-2 transition-all ${
+                            selectedImage === img ? 'border-gold ring-4 ring-gold/10' : 'border-transparent'
+                          }`}
+                        >
+                          <img 
+                            src={img} 
+                            alt={`${property.title} gallery ${idx}`} 
+                            className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+
+                  {activeTab === 'plans' && property.details.floorPlans && property.details.floorPlans.length > 1 && (
+                    <div className="grid grid-cols-4 gap-4">
+                      {property.details.floorPlans.map((img, idx) => (
+                        <div 
+                          key={idx} 
+                          onClick={() => setSelectedImage(img)}
+                          className={`aspect-square rounded-2xl overflow-hidden bg-gray-200 shadow-md cursor-pointer border-2 transition-all ${
+                            selectedImage === img ? 'border-gold ring-4 ring-gold/10' : 'border-transparent'
+                          }`}
+                        >
+                          <img 
+                            src={img} 
+                            alt={`${property.title} plan ${idx}`} 
+                            className="w-full h-full object-cover"
+                            referrerPolicy="no-referrer"
+                          />
+                        </div>
+                      ))}
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
             </div>
 
             {/* Content */}
@@ -199,6 +335,65 @@ const PropertyDetail = () => {
           <p className="text-gray-400 text-sm">© 2026 Domy v Židech | Třebíč UNESCO</p>
         </div>
       </footer>
+
+      {/* Lightbox Popup */}
+      <AnimatePresence>
+        {isLightboxOpen && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-[100] bg-dark/95 backdrop-blur-xl flex items-center justify-center p-4 md:p-10"
+            onClick={() => setIsLightboxOpen(false)}
+          >
+            <button 
+              className="absolute top-6 right-6 text-white/50 hover:text-white transition-colors p-2"
+              onClick={() => setIsLightboxOpen(false)}
+            >
+              <X size={32} />
+            </button>
+            
+            <motion.div 
+              initial={{ scale: 0.9, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.9, opacity: 0 }}
+              className="relative max-w-6xl w-full aspect-[16/10] rounded-3xl overflow-hidden shadow-2xl flex items-center justify-center"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <img 
+                src={selectedImage || property.image} 
+                alt={property.title} 
+                className="max-w-full max-h-full object-contain"
+                referrerPolicy="no-referrer"
+              />
+
+              {allImages.length > 1 && (
+                <>
+                  <button 
+                    onClick={handlePrev}
+                    className="absolute left-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-4 rounded-full transition-all border border-white/10"
+                  >
+                    <ChevronLeft size={32} />
+                  </button>
+                  <button 
+                    onClick={handleNext}
+                    className="absolute right-4 top-1/2 -translate-y-1/2 bg-white/10 hover:bg-white/20 backdrop-blur-md text-white p-4 rounded-full transition-all border border-white/10"
+                  >
+                    <ChevronRight size={32} />
+                  </button>
+                </>
+              )}
+              
+              <div className="absolute bottom-6 left-1/2 -translate-x-1/2 bg-black/40 backdrop-blur-md px-6 py-3 rounded-full border border-white/10">
+                <p className="text-white text-sm font-medium tracking-wide">
+                  {activeTab === 'photos' ? 'Fotografie interiéru' : 'Půdorys nemovitosti'}
+                  <span className="ml-3 opacity-50">{currentImageIndex + 1} / {allImages.length}</span>
+                </p>
+              </div>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </div>
   );
 };

@@ -9,20 +9,20 @@ const FullGallery = () => {
   }, []);
 
   const realizations = [
-    { url: '/imgs/galerie1.jpg', title: 'Rekonstrukce bytu 2+kk', location: 'Židovská čtvrť', year: '2023' },
-    { url: '/imgs/galerie2.jpg', title: 'Detail kamenného zdiva', location: 'Ulice L. Pokorného', year: '2023' },
-    { url: '/imgs/galerie3.jpg', title: 'Moderní kuchyně v historii', location: 'Dům u Synagogy', year: '2024' },
-    { url: '/imgs/galerie4.jpg', title: 'Ložnice v podkroví', location: 'Mezonet UNESCO', year: '2024' },
-    { url: '/imgs/byt1.jpg', title: 'Apartmán U Synagogy - Obývací pokoj', location: 'Třebíč', year: '2023' },
-    { url: '/imgs/byt2.jpg', title: 'Ateliér Pod Baštou - Exteriér', location: 'Třebíč', year: '2022' },
-    { url: '/imgs/byt3.jpg', title: 'Mezonet UNESCO - Terasa', location: 'Třebíč', year: '2024' },
-    { url: '/imgs/about_01.jpg', title: 'Detail rekonstrukce fasády', location: 'Židovská čtvrť', year: '2023' },
+    { url: '/imgs/galerie1.jpg', title: 'Rekonstrukce bytu 2+kk', location: 'Židovská čtvrť', year: '2023', propertyId: 'apartman-u-synagogy', status: 'V nabídce' },
+    { url: '/imgs/galerie2.jpg', title: 'Detail kamenného zdiva', location: 'Ulice L. Pokorného', year: '2023', propertyId: 'atelier-pod-bastou', status: 'Rezervováno' },
+    { url: '/imgs/galerie3.jpg', title: 'Moderní kuchyně v historii', location: 'Dům u Synagogy', year: '2024', propertyId: 'apartman-u-synagogy', status: 'V nabídce' },
+    { url: '/imgs/galerie4.jpg', title: 'Ložnice v podkroví', location: 'Mezonet UNESCO', year: '2024', propertyId: 'mezonet-unesco', status: 'Připravujeme' },
+    { url: '/imgs/byt1.jpg', title: 'Apartmán U Synagogy - Obývací pokoj', location: 'Třebíč', year: '2023', propertyId: 'apartman-u-synagogy', status: 'V nabídce' },
+    { url: '/imgs/byt2.jpg', title: 'Ateliér Pod Baštou - Exteriér', location: 'Třebíč', year: '2022', propertyId: 'atelier-pod-bastou', status: 'Rezervováno' },
+    { url: '/imgs/byt3.jpg', title: 'Mezonet UNESCO - Terasa', location: 'Třebíč', year: '2024', propertyId: 'mezonet-unesco', status: 'Připravujeme' },
+    { url: '/imgs/about_01.jpg', title: 'Detail rekonstrukce fasády', location: 'Židovská čtvrť', year: '2023', status: 'Prodáno' },
   ];
 
   return (
     <div className="pt-32 pb-20 bg-cream min-h-screen">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <Link to="/" className="inline-flex items-center text-gold font-bold mb-12 hover:gap-2 transition-all group">
+        <Link to="/#offer" className="inline-flex items-center text-gold font-bold mb-12 hover:gap-2 transition-all group">
           <ArrowLeft className="mr-2 h-5 w-5 group-hover:-translate-x-1 transition-transform" />
           Zpět na hlavní stránku
         </Link>
@@ -36,35 +36,62 @@ const FullGallery = () => {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {realizations.map((item, i) => (
-            <motion.div 
-              key={i}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: i * 0.1 }}
-              viewport={{ once: true }}
-              className="group relative bg-white rounded-3xl overflow-hidden shadow-xl"
-            >
-              <div className="aspect-[4/3] overflow-hidden">
-                <img 
-                  src={item.url} 
-                  alt={item.title} 
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-                  referrerPolicy="no-referrer"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex justify-between items-start mb-2">
-                  <h3 className="text-xl font-bold text-dark">{item.title}</h3>
-                  <span className="text-xs font-bold text-gold bg-gold/10 px-2 py-1 rounded">{item.year}</span>
+          {realizations.map((item, i) => {
+            const CardContent = (
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ delay: i * 0.1 }}
+                viewport={{ once: true }}
+                className="group relative bg-white rounded-3xl overflow-hidden shadow-xl h-full"
+              >
+                <div className="aspect-[4/3] overflow-hidden relative">
+                  <img 
+                    src={item.url} 
+                    alt={item.title} 
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    referrerPolicy="no-referrer"
+                  />
+                  <div className="absolute top-4 left-4 z-20">
+                    <span className={`px-3 py-1 rounded-full text-[9px] font-bold uppercase tracking-widest text-white shadow-lg ${
+                      item.status === 'V nabídce' ? 'bg-emerald-500' : 
+                      item.status === 'Připravujeme' ? 'bg-gold' : 
+                      item.status === 'Rezervováno' ? 'bg-blue-500' : 'bg-gray-500'
+                    }`}>
+                      {item.status}
+                    </span>
+                  </div>
+                  {item.propertyId && (
+                    <div className="absolute inset-0 bg-dark/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center z-10">
+                      <span className="bg-gold text-white px-6 py-2 rounded-full font-bold text-sm transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                        Zobrazit detail bytu
+                      </span>
+                    </div>
+                  )}
                 </div>
-                <p className="text-gray-500 text-sm flex items-center gap-1">
-                  <Camera className="h-3 w-3" />
-                  {item.location}
-                </p>
+                <div className="p-6">
+                  <div className="flex justify-between items-start mb-2">
+                    <h3 className="text-xl font-bold text-dark">{item.title}</h3>
+                    <span className="text-xs font-bold text-gold bg-gold/10 px-2 py-1 rounded">{item.year}</span>
+                  </div>
+                  <p className="text-gray-500 text-sm flex items-center gap-1">
+                    <Camera className="h-3 w-3" />
+                    {item.location}
+                  </p>
+                </div>
+              </motion.div>
+            );
+
+            return item.propertyId ? (
+              <Link key={i} to={`/property/${item.propertyId}`}>
+                {CardContent}
+              </Link>
+            ) : (
+              <div key={i}>
+                {CardContent}
               </div>
-            </motion.div>
-          ))}
+            );
+          })}
         </div>
 
         <div className="mt-20 p-12 bg-dark rounded-[3rem] text-center relative overflow-hidden">

@@ -16,6 +16,9 @@ export const properties = [
         '/imgs/byt1_1.jpg',
         '/imgs/byt1_2.jpg',
         '/imgs/byt1_3.jpg'
+      ],
+      floorPlans: [
+        'https://picsum.photos/seed/floorplan1/1200/800'
       ]
     }
   },
@@ -35,6 +38,9 @@ export const properties = [
       gallery: [
         '/imgs/byt2_1.jpg',
         '/imgs/byt2_2.jpg'
+      ],
+      floorPlans: [
+        'https://picsum.photos/seed/floorplan2/1200/800'
       ]
     }
   },
@@ -56,6 +62,10 @@ export const properties = [
         '/imgs/byt3_2.jpg',
         '/imgs/byt3_3.jpg',
         '/imgs/byt3_4.jpg'
+      ],
+      floorPlans: [
+        'https://picsum.photos/seed/floorplan3/1200/800',
+        'https://picsum.photos/seed/floorplan4/1200/800'
       ]
     }
   },
