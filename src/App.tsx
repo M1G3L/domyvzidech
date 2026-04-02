@@ -160,15 +160,6 @@ const About = () => (
           <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
             <img src="/imgs/about_01.jpg" alt="Detail rekonstrukce - zakladatel projektu" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
-          <div className="absolute -bottom-10 -right-10 bg-white p-10 rounded-3xl shadow-2xl border border-gray-100 hidden md:block">
-            <div className="flex items-center gap-4 mb-4">
-              <div className="w-12 h-12 bg-gold/10 rounded-full flex items-center justify-center text-gold">
-                <CheckCircle2 className="h-7 w-7" />
-              </div>
-              <p className="text-3xl font-bold text-dark">100%</p>
-            </div>
-            <p className="text-gray-500 font-medium uppercase tracking-wider text-xs">Kvalita provedení</p>
-          </div>
         </motion.div>
 
         <div>
