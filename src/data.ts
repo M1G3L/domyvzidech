@@ -13,7 +13,6 @@ export const properties = [
       features: ['Původní klenby', 'Výhled na synagogu', 'Nová okna', 'Podlahové vytápění'],
       longDesc: 'Tento unikátní apartmán se nachází v samém srdci židovské čtvrti, jen pár kroků od Zadní synagogy. Rekonstrukce byla provedena s maximálním důrazem na zachování historických prvků, jako jsou klenuté stropy v obývacím pokoji. Byt nabízí moderní komfort v historickém obalu.',
       gallery: [
-        '/imgs/byt1_1.jpg',
         '/imgs/byt1_2.jpg',
         '/imgs/byt1_3.jpg'
       ],
@@ -28,7 +27,7 @@ export const properties = [
     price: '3.200.000 Kč', 
     status: 'Rezervováno', 
     desc: 'Unikátní prostor v přízemí historického domu, ideální jako investice nebo kancelář.', 
-    image: '/imgs/byt2.jpg',
+    image: '/imgs/byt2.png',
     details: {
       area: '38 m²',
       floor: '1. NP',
@@ -36,8 +35,12 @@ export const properties = [
       features: ['Kamenné zdivo', 'Vlastní vchod z ulice', 'Vysoké stropy', 'Historický portál'],
       longDesc: 'Ateliér v přízemí domu s bohatou historií. Prostor je charakteristický přiznaným kamenným zdivem, které dodává interiéru nezaměnitelnou atmosféru. Ideální pro kreativní studio, galerii nebo stylové ubytování typu Airbnb.',
       gallery: [
-        '/imgs/byt2_1.jpg',
-        '/imgs/byt2_2.jpg'
+        '/imgs/byt2_1.png',
+        '/imgs/byt2_2.png',
+        '/imgs/byt2_3.png',
+        '/imgs/byt2_4.png',
+        '/imgs/byt2_5.png',
+        '/imgs/byt2_6.png'
       ],
       floorPlans: [
         'https://picsum.photos/seed/floorplan2/1200/800'
