@@ -118,7 +118,7 @@ const Hero = () => (
   <section className="relative h-screen flex items-center overflow-hidden">
     <div className="absolute inset-0 z-0">
       <img 
-        src="https://www.abczech.cz/img/Bazilika-sv.-Prokopa-a-zidovska-ctvrt-v-Trebici-PFO1100-2015958.jpg" 
+        src="/public/imgs/hero_trebic_1.jpg" 
         alt="Panoramatický pohled na Třebíč a baziliku" 
         className="w-full h-full object-cover"
         referrerPolicy="no-referrer"
@@ -324,8 +324,8 @@ const References = () => (
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <img src="https://images.unsplash.com/photo-1600566753190-17f0bb2a6c3e?auto=format&fit=crop&q=80&w=600" alt="Reference 1" className="rounded-2xl shadow-lg" referrerPolicy="no-referrer" />
-          <img src="https://images.unsplash.com/photo-1600607687940-47a04b629753?auto=format&fit=crop&q=80&w=600" alt="Reference 2" className="rounded-2xl shadow-lg mt-8" referrerPolicy="no-referrer" />
+          <img src="/imgs/reference1.jpg" alt="Reference 1" className="rounded-2xl shadow-lg" referrerPolicy="no-referrer" />
+          <img src="/imgs/reference2.jpg" alt="Reference 2" className="rounded-2xl shadow-lg mt-8" referrerPolicy="no-referrer" />
         </div>
       </div>
     </div>
