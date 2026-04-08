@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
   Building2, 
   MapPin, 
@@ -79,13 +79,20 @@ const Navbar = () => {
           
           <div className="hidden md:flex items-center space-x-8">
             {links.map((link) => (
-              <a key={link.name} href={link.href} className={`text-sm font-semibold transition-colors hover:text-gold ${scrolled || !isHome ? 'text-dark' : 'text-white'}`}>
+              <Link 
+                key={link.name} 
+                to={link.href} 
+                className={`text-sm font-semibold transition-colors hover:text-gold ${scrolled || !isHome ? 'text-dark' : 'text-white'}`}
+              >
                 {link.name}
-              </a>
+              </Link>
             ))}
-            <a href={isHome ? '#contact' : '/#contact'} className="bg-gold hover:bg-gold-dark text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-gold/20">
+            <Link 
+              to={isHome ? '#contact' : '/#contact'} 
+              className="bg-gold hover:bg-gold-dark text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-gold/20"
+            >
               Domluvit prohlídku
-            </a>
+            </Link>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2">
@@ -99,13 +106,22 @@ const Navbar = () => {
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="md:hidden bg-white absolute top-full left-0 w-full border-b border-gray-100 shadow-xl">
             <div className="px-4 py-6 space-y-4">
               {links.map((link) => (
-                <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="block text-lg font-medium text-dark hover:text-gold">
+                <Link 
+                  key={link.name} 
+                  to={link.href} 
+                  onClick={() => setIsOpen(false)} 
+                  className="block text-lg font-medium text-dark hover:text-gold"
+                >
                   {link.name}
-                </a>
+                </Link>
               ))}
-              <a href={isHome ? '#contact' : '/#contact'} onClick={() => setIsOpen(false)} className="block w-full text-center bg-gold text-white py-4 rounded-xl font-bold">
+              <Link 
+                to={isHome ? '#contact' : '/#contact'} 
+                onClick={() => setIsOpen(false)} 
+                className="block w-full text-center bg-gold text-white py-4 rounded-xl font-bold"
+              >
                 Domluvit prohlídku
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
@@ -139,13 +155,13 @@ const Hero = () => (
           Spojení historické autenticity a moderního komfortu. Investujte do nemovitosti v unikátní židovské čtvrti s vysokým potenciálem zhodnocení.
         </p>
         <div className="flex flex-col sm:flex-row gap-5">
-          <a href="#contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-gold-dark text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-2xl shadow-gold/40">
+          <Link to="#contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-gold-dark text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-2xl shadow-gold/40">
             Získat aktuální nabídku
             <ChevronRight className="ml-2 h-5 w-5" />
-          </a>
-          <a href="#gallery" className="inline-flex items-center justify-center px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full backdrop-blur-md border border-white/30 transition-all">
+          </Link>
+          <Link to="#gallery" className="inline-flex items-center justify-center px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full backdrop-blur-md border border-white/30 transition-all">
             Prohlédnout rekonstrukce
-          </a>
+          </Link>
         </div>
       </motion.div>
     </div>
