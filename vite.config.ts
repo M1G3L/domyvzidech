@@ -8,6 +8,7 @@ export default defineConfig(({mode}) => {
   return {
     base: '/domyvzidech/', 
     plugins: [react(), tailwindcss()],
+    base: '/domyvzidech/',
     define: {
       'process.env.GEMINI_API_KEY': JSON.stringify(env.GEMINI_API_KEY),
     },

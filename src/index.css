@@ -1,9 +1,9 @@
 @import "tailwindcss";
 
 @theme {
-  --color-gold: #C5A059;
-  --color-gold-light: #D4B475;
-  --color-gold-dark: #A68544;
+  --color-gold: #791D1B;
+  --color-gold-light: #94302D;
+  --color-gold-dark: #5E1614;
   --color-dark: #1A1A1A;
   --color-cream: #FDFCF8;
   
@@ -29,5 +29,5 @@
 }
 
 .card-shadow-hover {
-  box-shadow: 0 20px 40px -15px rgba(197, 160, 89, 0.15);
+  box-shadow: 0 20px 40px -15px rgba(121, 29, 27, 0.15);
 }
