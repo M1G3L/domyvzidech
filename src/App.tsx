@@ -134,7 +134,7 @@ const Hero = () => (
   <section className="relative h-screen flex items-center overflow-hidden">
     <div className="absolute inset-0 z-0">
       <img 
-        src="/public/imgs/hero_trebic_1.jpg" 
+        src={`${import.meta.env.BASE_URL}imgs/hero_trebic_1.jpg`} 
         alt="Panoramatický pohled na Třebíč a baziliku" 
         className="w-full h-full object-cover"
         referrerPolicy="no-referrer"
@@ -174,7 +174,7 @@ const About = () => (
       <div className="grid lg:grid-cols-2 gap-24 items-center">
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
           <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-            <img src="/imgs/about_01.jpg" alt="Detail rekonstrukce - zakladatel projektu" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src={`${import.meta.env.BASE_URL}imgs/about_01.jpg`} alt="Detail rekonstrukce - zakladatel projektu" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
         </motion.div>
 
@@ -266,11 +266,12 @@ const Offer = () => {
 };
 
 const Gallery = () => {
+  const base = import.meta.env.BASE_URL;
   const images = [
-    { url: '/imgs/galerie1.jpg', label: 'Rekonstrukce bytu 2+kk, původní trámy', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
-    { url: '/imgs/galerie2.jpg', label: 'Detail kamenného zdiva v interiéru', status: 'Rezervováno', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
-    { url: '/imgs/galerie3.jpg', label: 'Moderní kuchyně v historickém kontextu', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/p/DD4U-cjsHOZ/?img_index=1' },
-    { url: '/imgs/galerie4.jpg', label: 'Ložnice s výhledem na židovskou čtvrť', status: 'Připravujeme', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
+    { url: `${base}imgs/galerie1.jpg`, label: 'Rekonstrukce bytu 2+kk, původní trámy', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
+    { url: `${base}imgs/galerie2.jpg`, label: 'Detail kamenného zdiva v interiéru', status: 'Rezervováno', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
+    { url: `${base}imgs/galerie3.jpg`, label: 'Moderní kuchyně v historickém kontextu', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/p/DD4U-cjsHOZ/?img_index=1' },
+    { url: `${base}imgs/galerie4.jpg`, label: 'Ložnice s výhledem na židovskou čtvrť', status: 'Připravujeme', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
   ];
 
   return (
@@ -340,8 +341,8 @@ const References = () => (
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <img src="/imgs/reference1.jpg" alt="Reference 1" className="rounded-2xl shadow-lg" referrerPolicy="no-referrer" />
-          <img src="/imgs/reference2.jpg" alt="Reference 2" className="rounded-2xl shadow-lg mt-8" referrerPolicy="no-referrer" />
+          <img src={`${import.meta.env.BASE_URL}imgs/reference1.jpg`} alt="Reference 1" className="rounded-2xl shadow-lg" referrerPolicy="no-referrer" />
+          <img src={`${import.meta.env.BASE_URL}imgs/reference2.jpg`} alt="Reference 2" className="rounded-2xl shadow-lg mt-8" referrerPolicy="no-referrer" />
         </div>
       </div>
     </div>
