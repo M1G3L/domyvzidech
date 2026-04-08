@@ -4,7 +4,7 @@
  */
 
 import React, { useState, useEffect } from 'react';
-import { HashRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Link, useLocation } from 'react-router-dom';
 import { 
   Building2, 
   MapPin, 
@@ -448,7 +448,7 @@ const HomePage = () => (
 
 export default function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <ScrollToHash />
       <div className="min-h-screen font-sans">
         <Navbar />
