@@ -184,7 +184,7 @@ const About = () => (
             Vracíme život historickým domům v židovské čtvrti
           </h2>
           <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-            Projekt "Dům v Židech" není jen o prodeji metrů čtverečních. Je o citlivé záchraně architektonického dědictví Třebíče. Každý dům v této UNESCO lokalitě má svou duši, kterou při rekonstrukci pečlivě odkrýváme.
+            Projekt "Domy v Židech" není jen o prodeji metrů čtverečních. Je o citlivé záchraně architektonického dědictví Třebíče. Každý dům v této UNESCO lokalitě má svou duši, kterou při rekonstrukci pečlivě odkrýváme.
           </p>
           
           <div className="grid sm:grid-cols-2 gap-8 mb-12">
@@ -329,7 +329,7 @@ const References = () => (
           <div className="space-y-10">
             {[
               { name: 'Ing. Petr Marek', role: 'Investor', text: 'Spolupráce na rekonstrukci bytu v židovské čtvrti byla profesionální. Oceňuji cit pro detail a dodržení termínů i v náročných podmínkách památkové zóny.' },
-              { name: 'Lucie Svobodová', role: 'Majitelka bytu', text: 'Bydlení v Domě v Židech je splněný sen. Podařilo se zachovat atmosféru starého domu, ale přitom se cítím jako v moderní novostavbě.' }
+              { name: 'Lucie Svobodová', role: 'Majitelka bytu', text: 'Bydlení v Domech v Židech je splněný sen. Podařilo se zachovat atmosféru starého domu, ale přitom se cítím jako v moderní novostavbě.' }
             ].map((ref, i) => (
               <div key={i} className="relative pl-10 border-l-2 border-gold/30">
                 <div className="absolute -left-[9px] top-0 w-4 h-4 bg-gold rounded-full"></div>
@@ -415,7 +415,7 @@ const Footer = () => (
         <div className="flex items-center gap-2">
           <Building2 className="text-gold h-8 w-8" />
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tighter text-dark leading-none">DŮM V ŽIDECH</span>
+            <span className="text-xl font-bold tracking-tighter text-dark leading-none">DOMY V ŽIDECH</span>
             <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-gold">Třebíč UNESCO</span>
           </div>
         </div>
@@ -429,7 +429,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="mt-12 pt-8 border-t border-gray-50 text-center">
-        <p className="text-gray-400 text-sm">© 2026 Dům v Židech. Všechna práva vyhrazena. Realizace v UNESCO lokalitě Třebíč.</p>
+        <p className="text-gray-400 text-sm">© 2026 Domy v Židech. Všechna práva vyhrazena. Realizace v UNESCO lokalitě Třebíč.</p>
       </div>
     </div>
   </footer>
