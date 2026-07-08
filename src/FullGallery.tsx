@@ -8,11 +8,12 @@ const FullGallery = () => {
     window.scrollTo(0, 0);
   }, []);
 
+  const base = import.meta.env.BASE_URL;
   const realizations = [
-    { url: '/imgs/byt1.jpg', title: 'Apartmán U Synagogy - Obývací pokoj', location: 'Třebíč', year: '2023', propertyId: 'apartman-u-synagogy', status: 'V nabídce' },
-    { url: '/imgs/byt2.png', title: 'Ateliér Pod Baštou - Exteriér', location: 'Třebíč', year: '2022', propertyId: 'atelier-pod-bastou', status: 'Rezervováno' },
-    { url: '/imgs/byt3.jpg', title: 'Mezonet UNESCO - Terasa', location: 'Třebíč', year: '2024', propertyId: 'mezonet-unesco', status: 'Připravujeme' },
-    { url: '/imgs/about_01.jpg', title: 'Detail rekonstrukce fasády', location: 'Židovská čtvrť', year: '2023', status: 'Prodáno' },
+    { url: `${base}imgs/byt1.jpg`, title: 'Apartmán U Synagogy - Obývací pokoj', location: 'Třebíč', year: '2023', propertyId: 'apartman-u-synagogy', status: 'V nabídce' },
+    { url: `${base}imgs/byt2.png`, title: 'Ateliér Pod Baštou - Exteriér', location: 'Třebíč', year: '2022', propertyId: 'atelier-pod-bastou', status: 'Rezervováno' },
+    { url: `${base}imgs/byt3.jpg`, title: 'Mezonet UNESCO - Terasa', location: 'Třebíč', year: '2024', propertyId: 'mezonet-unesco', status: 'Připravujeme' },
+    { url: `${base}imgs/about_01.jpg`, title: 'Detail rekonstrukce fasády', location: 'Židovská čtvrť', year: '2023', status: 'Prodáno' },
   ];
 
   return (

@@ -79,13 +79,20 @@ const Navbar = () => {
           
           <div className="hidden md:flex items-center space-x-8">
             {links.map((link) => (
-              <a key={link.name} href={link.href} className={`text-sm font-semibold transition-colors hover:text-gold ${scrolled || !isHome ? 'text-dark' : 'text-white'}`}>
+              <Link 
+                key={link.name} 
+                to={link.href} 
+                className={`text-sm font-semibold transition-colors hover:text-gold ${scrolled || !isHome ? 'text-dark' : 'text-white'}`}
+              >
                 {link.name}
-              </a>
+              </Link>
             ))}
-            <a href={isHome ? '#contact' : '/#contact'} className="bg-gold hover:bg-gold-dark text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-gold/20">
+            <Link 
+              to={isHome ? '#contact' : '/#contact'} 
+              className="bg-gold hover:bg-gold-dark text-white px-6 py-2.5 rounded-full text-sm font-bold transition-all shadow-lg shadow-gold/20"
+            >
               Domluvit prohlídku
-            </a>
+            </Link>
           </div>
 
           <button onClick={() => setIsOpen(!isOpen)} className="md:hidden p-2">
@@ -99,13 +106,22 @@ const Navbar = () => {
           <motion.div initial={{ opacity: 0, y: -20 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -20 }} className="md:hidden bg-white absolute top-full left-0 w-full border-b border-gray-100 shadow-xl">
             <div className="px-4 py-6 space-y-4">
               {links.map((link) => (
-                <a key={link.name} href={link.href} onClick={() => setIsOpen(false)} className="block text-lg font-medium text-dark hover:text-gold">
+                <Link 
+                  key={link.name} 
+                  to={link.href} 
+                  onClick={() => setIsOpen(false)} 
+                  className="block text-lg font-medium text-dark hover:text-gold"
+                >
                   {link.name}
-                </a>
+                </Link>
               ))}
-              <a href={isHome ? '#contact' : '/#contact'} onClick={() => setIsOpen(false)} className="block w-full text-center bg-gold text-white py-4 rounded-xl font-bold">
+              <Link 
+                to={isHome ? '#contact' : '/#contact'} 
+                onClick={() => setIsOpen(false)} 
+                className="block w-full text-center bg-gold text-white py-4 rounded-xl font-bold"
+              >
                 Domluvit prohlídku
-              </a>
+              </Link>
             </div>
           </motion.div>
         )}
@@ -118,7 +134,7 @@ const Hero = () => (
   <section className="relative h-screen flex items-center overflow-hidden">
     <div className="absolute inset-0 z-0">
       <img 
-        src="/public/imgs/hero_trebic_1.jpg" 
+        src={`${import.meta.env.BASE_URL}imgs/hero_trebic_1.jpg`} 
         alt="Panoramatický pohled na Třebíč a baziliku" 
         className="w-full h-full object-cover"
         referrerPolicy="no-referrer"
@@ -139,13 +155,13 @@ const Hero = () => (
           Spojení historické autenticity a moderního komfortu. Investujte do nemovitosti v unikátní židovské čtvrti s vysokým potenciálem zhodnocení.
         </p>
         <div className="flex flex-col sm:flex-row gap-5">
-          <a href="#contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-gold-dark text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-2xl shadow-gold/40">
+          <Link to="#contact" className="inline-flex items-center justify-center px-10 py-5 bg-gold hover:bg-gold-dark text-white font-bold rounded-full transition-all transform hover:scale-105 shadow-2xl shadow-gold/40">
             Získat aktuální nabídku
             <ChevronRight className="ml-2 h-5 w-5" />
-          </a>
-          <a href="#gallery" className="inline-flex items-center justify-center px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full backdrop-blur-md border border-white/30 transition-all">
+          </Link>
+          <Link to="#gallery" className="inline-flex items-center justify-center px-10 py-5 bg-white/10 hover:bg-white/20 text-white font-bold rounded-full backdrop-blur-md border border-white/30 transition-all">
             Prohlédnout rekonstrukce
-          </a>
+          </Link>
         </div>
       </motion.div>
     </div>
@@ -158,7 +174,7 @@ const About = () => (
       <div className="grid lg:grid-cols-2 gap-24 items-center">
         <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} className="relative">
           <div className="aspect-[4/5] rounded-3xl overflow-hidden shadow-2xl">
-            <img src="/imgs/about_01.jpg" alt="Detail rekonstrukce - zakladatel projektu" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
+            <img src={`${import.meta.env.BASE_URL}imgs/about_01.jpg`} alt="Detail rekonstrukce - zakladatel projektu" className="w-full h-full object-cover" referrerPolicy="no-referrer" />
           </div>
         </motion.div>
 
@@ -168,7 +184,7 @@ const About = () => (
             Vracíme život historickým domům v židovské čtvrti
           </h2>
           <p className="text-gray-600 text-lg mb-8 leading-relaxed">
-            Projekt "Dům v Židech" není jen o prodeji metrů čtverečních. Je o citlivé záchraně architektonického dědictví Třebíče. Každý dům v této UNESCO lokalitě má svou duši, kterou při rekonstrukci pečlivě odkrýváme.
+            Projekt "Domy v Židech" není jen o prodeji metrů čtverečních. Je o citlivé záchraně architektonického dědictví Třebíče. Každý dům v této UNESCO lokalitě má svou duši, kterou při rekonstrukci pečlivě odkrýváme.
           </p>
           
           <div className="grid sm:grid-cols-2 gap-8 mb-12">
@@ -250,11 +266,12 @@ const Offer = () => {
 };
 
 const Gallery = () => {
+  const base = import.meta.env.BASE_URL;
   const images = [
-    { url: '/imgs/galerie1.jpg', label: 'Rekonstrukce bytu 2+kk, původní trámy', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
-    { url: '/imgs/galerie2.jpg', label: 'Detail kamenného zdiva v interiéru', status: 'Rezervováno', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
-    { url: '/imgs/galerie3.jpg', label: 'Moderní kuchyně v historickém kontextu', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/p/DD4U-cjsHOZ/?img_index=1' },
-    { url: '/imgs/galerie4.jpg', label: 'Ložnice s výhledem na židovskou čtvrť', status: 'Připravujeme', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
+    { url: `${base}imgs/galerie1.jpg`, label: 'Rekonstrukce bytu 2+kk, původní trámy', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
+    { url: `${base}imgs/galerie2.jpg`, label: 'Detail kamenného zdiva v interiéru', status: 'Rezervováno', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
+    { url: `${base}imgs/galerie3.jpg`, label: 'Moderní kuchyně v historickém kontextu', status: 'V nabídce', instagramUrl: 'https://www.instagram.com/p/DD4U-cjsHOZ/?img_index=1' },
+    { url: `${base}imgs/galerie4.jpg`, label: 'Ložnice s výhledem na židovskou čtvrť', status: 'Připravujeme', instagramUrl: 'https://www.instagram.com/dum_v_zidech/' },
   ];
 
   return (
@@ -312,7 +329,7 @@ const References = () => (
           <div className="space-y-10">
             {[
               { name: 'Ing. Petr Marek', role: 'Investor', text: 'Spolupráce na rekonstrukci bytu v židovské čtvrti byla profesionální. Oceňuji cit pro detail a dodržení termínů i v náročných podmínkách památkové zóny.' },
-              { name: 'Lucie Svobodová', role: 'Majitelka bytu', text: 'Bydlení v Domě v Židech je splněný sen. Podařilo se zachovat atmosféru starého domu, ale přitom se cítím jako v moderní novostavbě.' }
+              { name: 'Lucie Svobodová', role: 'Majitelka bytu', text: 'Bydlení v Domech v Židech je splněný sen. Podařilo se zachovat atmosféru starého domu, ale přitom se cítím jako v moderní novostavbě.' }
             ].map((ref, i) => (
               <div key={i} className="relative pl-10 border-l-2 border-gold/30">
                 <div className="absolute -left-[9px] top-0 w-4 h-4 bg-gold rounded-full"></div>
@@ -324,8 +341,8 @@ const References = () => (
           </div>
         </div>
         <div className="grid grid-cols-2 gap-4">
-          <img src="/imgs/reference1.jpg" alt="Reference 1" className="rounded-2xl shadow-lg" referrerPolicy="no-referrer" />
-          <img src="/imgs/reference2.jpg" alt="Reference 2" className="rounded-2xl shadow-lg mt-8" referrerPolicy="no-referrer" />
+          <img src={`${import.meta.env.BASE_URL}imgs/reference1.jpg`} alt="Reference 1" className="rounded-2xl shadow-lg" referrerPolicy="no-referrer" />
+          <img src={`${import.meta.env.BASE_URL}imgs/reference2.jpg`} alt="Reference 2" className="rounded-2xl shadow-lg mt-8" referrerPolicy="no-referrer" />
         </div>
       </div>
     </div>
@@ -398,7 +415,7 @@ const Footer = () => (
         <div className="flex items-center gap-2">
           <Building2 className="text-gold h-8 w-8" />
           <div className="flex flex-col">
-            <span className="text-xl font-bold tracking-tighter text-dark leading-none">DŮM V ŽIDECH</span>
+            <span className="text-xl font-bold tracking-tighter text-dark leading-none">DOMY V ŽIDECH</span>
             <span className="text-[10px] font-bold tracking-[0.3em] uppercase text-gold">Třebíč UNESCO</span>
           </div>
         </div>
@@ -412,7 +429,7 @@ const Footer = () => (
         </div>
       </div>
       <div className="mt-12 pt-8 border-t border-gray-50 text-center">
-        <p className="text-gray-400 text-sm">© 2026 Dům v Židech. Všechna práva vyhrazena. Realizace v UNESCO lokalitě Třebíč.</p>
+        <p className="text-gray-400 text-sm">© 2026 Domy v Židech. Všechna práva vyhrazena. Realizace v UNESCO lokalitě Třebíč.</p>
       </div>
     </div>
   </footer>
@@ -431,7 +448,7 @@ const HomePage = () => (
 
 export default function App() {
   return (
-    <Router>
+    <Router basename={import.meta.env.BASE_URL}>
       <ScrollToHash />
       <div className="min-h-screen font-sans">
         <Navbar />
